@@ -8,13 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Slf4j
 @EnableCaching // 启用缓存功能
 @EnableScheduling // 开启定时任务功能
 @SpringBootApplication
-@MapperScans({@MapperScan("com.sleep.server.dao"),@MapperScan("com.sleep.server.mapper")})
+@ComponentScan(basePackages = "com.sleep")
+@MapperScan("com.sleep.server.dao")
 public class ScheduledApplication {
     private static Logger logger = LoggerFactory.getLogger(ScheduledApplication.class);
     public static void main(String[] args) {
