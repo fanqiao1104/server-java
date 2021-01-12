@@ -12,9 +12,9 @@ http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <description>Demo project for Spring Boot</description>
 
     <modules>
-        <module>core-service</module>
         <module>plugin</module>
         <module>common</module>
+        <module>core-service</module>
         <module>backend</module>
         <module>schedule</module>
     </modules>
