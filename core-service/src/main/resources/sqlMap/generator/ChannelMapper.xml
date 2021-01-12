@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sleep.server.dao.mapper.generator.ChannelMapper">
+  <resultMap id="BaseResultMap" type="com.sleep.server.dao.entity.Channel">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="app_secret" jdbcType="VARCHAR" property="appSecret" />
+    <id column="app_key" jdbcType="VARCHAR" property="appKey" />
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="grants" jdbcType="VARCHAR" property="grants" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sleep.server.dao.entity.Channel">
+    <result column="redirect_uris" jdbcType="LONGVARCHAR" property="redirectUris" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, app_secret, app_key, name, user_id, status, grants, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    redirect_uris
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sleep.server.dao.entity.ChannelExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from channels
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sleep.server.dao.entity.ChannelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from channels
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from channels
+    where id = #{id,jdbcType=VARCHAR}
+      and app_secret = #{appSecret,jdbcType=VARCHAR}
+      and app_key = #{appKey,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from channels
+    where id = #{id,jdbcType=VARCHAR}
+      and app_secret = #{appSecret,jdbcType=VARCHAR}
+      and app_key = #{appKey,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sleep.server.dao.entity.ChannelExample">
+    delete from channels
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sleep.server.dao.entity.Channel">
+    insert into channels (id, app_secret, app_key, 
+      name, user_id, status, 
+      grants, create_time, update_time, 
+      redirect_uris)
+    values (#{id,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{grants,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{redirectUris,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sleep.server.dao.entity.Channel">
+    insert into channels
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appSecret != null">
+        app_secret,
+      </if>
+      <if test="appKey != null">
+        app_key,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="grants != null">
+        grants,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="redirectUris != null">
+        redirect_uris,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="grants != null">
+        #{grants,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="redirectUris != null">
+        #{redirectUris,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sleep.server.dao.entity.ChannelExample" resultType="java.lang.Long">
+    select count(*) from channels
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update channels
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appSecret != null">
+        app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appKey != null">
+        app_key = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.grants != null">
+        grants = #{record.grants,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.redirectUris != null">
+        redirect_uris = #{record.redirectUris,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update channels
+    set id = #{record.id,jdbcType=VARCHAR},
+      app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      app_key = #{record.appKey,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      grants = #{record.grants,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      redirect_uris = #{record.redirectUris,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update channels
+    set id = #{record.id,jdbcType=VARCHAR},
+      app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      app_key = #{record.appKey,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      grants = #{record.grants,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sleep.server.dao.entity.Channel">
+    update channels
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="grants != null">
+        grants = #{grants,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="redirectUris != null">
+        redirect_uris = #{redirectUris,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and app_secret = #{appSecret,jdbcType=VARCHAR}
+      and app_key = #{appKey,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sleep.server.dao.entity.Channel">
+    update channels
+    set status = #{status,jdbcType=INTEGER},
+      grants = #{grants,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      redirect_uris = #{redirectUris,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+      and app_secret = #{appSecret,jdbcType=VARCHAR}
+      and app_key = #{appKey,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sleep.server.dao.entity.Channel">
+    update channels
+    set status = #{status,jdbcType=INTEGER},
+      grants = #{grants,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+      and app_secret = #{appSecret,jdbcType=VARCHAR}
+      and app_key = #{appKey,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="logicDelete" parameterType="java.lang.Long">
+    update channels
+    set deleted = 1, update_time = REPLACE(unix_timestamp(current_timestamp(3)),'.','') where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="logicDeleteWithUIndex" parameterType="map">
+    update channels A,
+    (select C.deleted  from channels C,
+    (select
+    <foreach collection="uIndexes" index="index" item="column" separator=",">
+      ${column}
+    </foreach>
+    from channels where id = #{id,jdbcType=BIGINT}) D
+    <where>
+      <foreach collection="uIndexes" index="index" item="column">
+         and C.${column} = D.${column}
+      </foreach>
+    </where>
+    order by C.deleted desc limit 1) B
+    set A.deleted = B.deleted + 1, A.update_time = REPLACE(unix_timestamp(current_timestamp(3)),'.','')
+    where A.id = #{id,jdbcType=BIGINT}
+    and A.deleted = 0
+  </update>
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into channels
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      app_secret,
+      app_key,
+      name,
+      user_id,
+      status,
+      grants,
+      create_time,
+      update_time,
+      redirect_uris,
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        #{item.id,jdbcType=VARCHAR},
+        #{item.appSecret,jdbcType=VARCHAR},
+        #{item.appKey,jdbcType=VARCHAR},
+        #{item.name,jdbcType=VARCHAR},
+        #{item.userId,jdbcType=VARCHAR},
+        #{item.status,jdbcType=INTEGER},
+        #{item.grants,jdbcType=VARCHAR},
+        #{item.createTime,jdbcType=BIGINT},
+        #{item.updateTime,jdbcType=BIGINT},
+        #{item.redirectUris,jdbcType=LONGVARCHAR},
+      </trim>
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    insert into channels
+    <foreach close=")" collection="columns" index="index" item="item" open="(" separator=",">
+      ${item}
+    </foreach>
+     values 
+    <foreach collection="records" index="index" item="record" separator=",">
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <foreach collection="columns" index="index" item="column">
+          <if test="'id' == column">
+            #{record.id,jdbcType=VARCHAR},
+          </if>
+          <if test="'app_secret' == column">
+            #{record.appSecret,jdbcType=VARCHAR},
+          </if>
+          <if test="'app_key' == column">
+            #{record.appKey,jdbcType=VARCHAR},
+          </if>
+          <if test="'name' == column">
+            #{record.name,jdbcType=VARCHAR},
+          </if>
+          <if test="'user_id' == column">
+            #{record.userId,jdbcType=VARCHAR},
+          </if>
+          <if test="'status' == column">
+            #{record.status,jdbcType=INTEGER},
+          </if>
+          <if test="'grants' == column">
+            #{record.grants,jdbcType=VARCHAR},
+          </if>
+          <if test="'create_time' == column">
+            #{record.createTime,jdbcType=BIGINT},
+          </if>
+          <if test="'update_time' == column">
+            #{record.updateTime,jdbcType=BIGINT},
+          </if>
+          <if test="'redirect_uris' == column">
+            #{record.redirectUris,jdbcType=LONGVARCHAR},
+          </if>
+        </foreach>
+      </trim>
+    </foreach>
+  </insert>
+  <select id="selectByPrimaryKeySelective" parameterType="map" resultMap="BaseResultMap">
+    select
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column}
+        </foreach>
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+    from channels
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectOneByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+    select
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column}
+        </foreach>
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+    from channels
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example != null and example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+    limit 1
+  </select>
+  <select id="selectByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+    select
+    <if test="example != null and example.distinct">
+      distinct
+    </if>
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column}
+        </foreach>
+      </when>
+      <otherwise>
+        <include refid="Base_Column_List" />
+      </otherwise>
+    </choose>
+    from channels
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example != null and example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+    <if test="example != null and example.limit != null">
+      <if test="example.offset != null">
+        limit ${example.offset}, ${example.limit}
+      </if>
+      <if test="example.offset == null">
+        limit ${example.limit}
+      </if>
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,14 @@
+server:
+  port: 7002
+
+spring:
+  application:
+    name: backend-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/sleep_service
+    username: root
+    password: 123456
+
+mybatis:
+  mapperLocations: classpath*:**/sqlMap/generator/*.xml  #指定*Mapper.xml的位置

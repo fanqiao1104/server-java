@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--    <classPathEntry location="lib/mysql-connector-java-5.1.38.jar" />-->
+
+    <context id="sleep_service" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <plugin type="com.sleep.server.plugin.MySqlLimitPlugin" />
+        <plugin type="com.sleep.server.plugin.LombokPlugin" />
+        <plugin type="com.sleep.server.plugin.LogicDeletePlugin" />
+        <plugin type="com.sleep.server.plugin.BatchInsertPlugin" />
+        <plugin type="com.sleep.server.plugin.AddInterfacePlugin" />
+        <plugin type="com.sleep.server.plugin.SelectSelectivePlugin" />
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/sleep_service" userId="root" password="123456" >
+            <property name="nullCatalogMeansCurrent" value="true"></property>
+        </jdbcConnection>
+
+        <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+            <!--默认false
+                false，将所有 JDBC 的时间类型解析为 java.util.Date
+                true，将 JDBC 的时间类型按如下规则解析
+                    DATE	                -> java.time.LocalDate
+                    TIME	                -> java.time.LocalTime
+                    TIMESTAMP                   -> java.time.LocalDateTime
+                    TIME_WITH_TIMEZONE  	-> java.time.OffsetTime
+                    TIMESTAMP_WITH_TIMEZONE	-> java.time.OffsetDateTime
+             -->
+        </javaTypeResolver>
+
+        <!-- 对应的实体类 -->
+        <javaModelGenerator targetPackage="com.sleep.server.dao.entity" targetProject="src/main/java">
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--对应的XXXMapper.xml文件 -->
+        <sqlMapGenerator targetPackage="generator" targetProject="src/main/resources/sqlMap">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+
+        <!-- 对应的XXXMapper.java文件 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.sleep.server.dao.mapper.generator"
+                             targetProject="src/main/java">
+        </javaClientGenerator>
+
+        <table tableName="users" domainObjectName="User"  >
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+        <table tableName="alburm" domainObjectName="Album" >
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+        <table tableName="audio"    domainObjectName="Audio" >
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+        <table tableName="channels" domainObjectName="Channel">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+        <table tableName="play_records" domainObjectName="PlayRecord">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+        <table tableName="content_order" domainObjectName="ContentOrder">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+            <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
