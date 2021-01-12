@@ -126,6 +126,7 @@ public class FetchOrderTask extends  IJobHandler {
                         item.setDiscountAmount(itemObject.getBigDecimal("discountAmount"));
                         item.setExpireTime(itemObject.getDate("expireTime"));
                         item.setSupplierProportion(itemObject.getInt("supplierProportion"));
+                        XxlJobLogger.log("%s %s %s %s %s %s",item.getOrderNo(),item.getUserId(),item.getPayTime(),item.getUserType(),item.getOrderMoney(),item.getActualMoney());
                         contentOrderMapper.insert(item);
                     }
                     if(size>=ps){
