@@ -38,9 +38,6 @@ public class AudioController {
     @PostMapping(path = "/create")
     public ResultView createAudio(@RequestBody @Validated AudioCreateRequestDto params){
         Audio audio =audioMapperConvert.toEntity(params);
-        long now = TimeUtils.nowMillis();
-        audio.setCreateTime(now);
-        audio.setUpdateTime(now);
         audio.setId(UUID.randomUUID().toString());
         audio.setCosId(SecureUtil.doubleMD5(params.getName()));
 
