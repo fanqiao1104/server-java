@@ -5,8 +5,6 @@ import com.sleep.server.dao.entity.AudioExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Mapper
 public interface AudioMapper extends com.sleep.server.dao.IMapper<Audio> {

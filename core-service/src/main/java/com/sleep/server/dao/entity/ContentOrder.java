@@ -8,11 +8,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
+@NoArgsConstructor
 @Getter
+@AllArgsConstructor
+@Builder
 public class ContentOrder {
     private Long id;
 
