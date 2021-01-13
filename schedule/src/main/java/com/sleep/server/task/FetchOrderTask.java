@@ -3,6 +3,8 @@ package com.sleep.server.task;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 //import com.sleep.server.dao.mapper.generator.ContentOrderMapper;
+import com.sleep.server.dao.IExample;
+import com.sleep.server.dao.entity.ContentOrderExample;
 import com.sleep.server.dao.mapper.generator.ContentOrderMapper;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
@@ -112,10 +114,21 @@ public class FetchOrderTask extends  IJobHandler {
                     Integer size = list.size();
 
                     for(int i = 0; i < size; i++){
+
                         JSONObject itemObject = list.getJSONObject(i);
                         ContentOrder item = new ContentOrder();
+                        String orderNo = itemObject.getStr("orderNo");
+                        ContentOrderExample example = new ContentOrderExample();
+                        example.createCriteria().andOrderNoEqualTo(orderNo);
+                        List<ContentOrder> contentOrders=  contentOrderMapper.selectByExample(example);
+
+                        if(contentOrders.size()>0){
+                            XxlJobLogger.log("order "+orderNo+" is exist passed");
+                            continue;
+                        }
+
                         item.setThirdId(itemObject.getStr("thirdId"));
-                        item.setOrderNo(itemObject.getStr("orderNo"));
+                        item.setOrderNo(orderNo);
                         item.setOrderMoney(itemObject.getBigDecimal("orderMoney"));
                         item.setActualMoney(itemObject.getBigDecimal("actualMoney"));
                         item.setUserId(itemObject.getStr("userId"));
@@ -127,7 +140,7 @@ public class FetchOrderTask extends  IJobHandler {
                         item.setExpireTime(itemObject.getDate("expireTime"));
                         item.setSupplierProportion(itemObject.getInt("supplierProportion"));
                         XxlJobLogger.log(item.getOrderNo()+" "+item.getUserId()+" "+item.getPayTime()+" "+item.getUserType()+" "+item.getOrderMoney()+" "+item.getActualMoney());
-                       contentOrderMapper.insert(item);
+                        contentOrderMapper.insert(item);
                     }
                     if(size>=ps){
                         pn=pn+1;
