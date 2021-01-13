@@ -9,8 +9,6 @@
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="grants" jdbcType="VARCHAR" property="grants" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sleep.server.dao.entity.Channel">
     <result column="redirect_uris" jdbcType="LONGVARCHAR" property="redirectUris" />
@@ -74,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, app_secret, app_key, name, user_id, status, grants, create_time, update_time
+    id, app_secret, app_key, name, user_id, status, grants
   </sql>
   <sql id="Blob_Column_List">
     redirect_uris
@@ -146,12 +144,10 @@
   <insert id="insert" parameterType="com.sleep.server.dao.entity.Channel">
     insert into channels (id, app_secret, app_key, 
       name, user_id, status, 
-      grants, create_time, update_time, 
-      redirect_uris)
+      grants, redirect_uris)
     values (#{id,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{grants,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
-      #{redirectUris,jdbcType=LONGVARCHAR})
+      #{grants,jdbcType=VARCHAR}, #{redirectUris,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sleep.server.dao.entity.Channel">
     insert into channels
@@ -176,12 +172,6 @@
       </if>
       <if test="grants != null">
         grants,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
       </if>
       <if test="redirectUris != null">
         redirect_uris,
@@ -208,12 +198,6 @@
       </if>
       <if test="grants != null">
         #{grants,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="redirectUris != null">
         #{redirectUris,jdbcType=LONGVARCHAR},
@@ -250,12 +234,6 @@
       <if test="record.grants != null">
         grants = #{record.grants,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=BIGINT},
-      </if>
       <if test="record.redirectUris != null">
         redirect_uris = #{record.redirectUris,jdbcType=LONGVARCHAR},
       </if>
@@ -273,8 +251,6 @@
       user_id = #{record.userId,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       grants = #{record.grants,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT},
       redirect_uris = #{record.redirectUris,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -288,9 +264,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      grants = #{record.grants,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT}
+      grants = #{record.grants,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -303,12 +277,6 @@
       </if>
       <if test="grants != null">
         grants = #{grants,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="redirectUris != null">
         redirect_uris = #{redirectUris,jdbcType=LONGVARCHAR},
@@ -324,8 +292,6 @@
     update channels
     set status = #{status,jdbcType=INTEGER},
       grants = #{grants,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
       redirect_uris = #{redirectUris,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
       and app_secret = #{appSecret,jdbcType=VARCHAR}
@@ -336,9 +302,7 @@
   <update id="updateByPrimaryKey" parameterType="com.sleep.server.dao.entity.Channel">
     update channels
     set status = #{status,jdbcType=INTEGER},
-      grants = #{grants,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
+      grants = #{grants,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
       and app_secret = #{appSecret,jdbcType=VARCHAR}
       and app_key = #{appKey,jdbcType=VARCHAR}
@@ -377,8 +341,6 @@
       user_id,
       status,
       grants,
-      create_time,
-      update_time,
       redirect_uris,
     </trim>
      values 
@@ -391,8 +353,6 @@
         #{item.userId,jdbcType=VARCHAR},
         #{item.status,jdbcType=INTEGER},
         #{item.grants,jdbcType=VARCHAR},
-        #{item.createTime,jdbcType=BIGINT},
-        #{item.updateTime,jdbcType=BIGINT},
         #{item.redirectUris,jdbcType=LONGVARCHAR},
       </trim>
     </foreach>
@@ -426,12 +386,6 @@
           </if>
           <if test="'grants' == column">
             #{record.grants,jdbcType=VARCHAR},
-          </if>
-          <if test="'create_time' == column">
-            #{record.createTime,jdbcType=BIGINT},
-          </if>
-          <if test="'update_time' == column">
-            #{record.updateTime,jdbcType=BIGINT},
           </if>
           <if test="'redirect_uris' == column">
             #{record.redirectUris,jdbcType=LONGVARCHAR},

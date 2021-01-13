@@ -12,7 +12,7 @@ public interface ContentOrderMapper extends com.sleep.server.dao.IMapper<Content
 
     int deleteByExample(ContentOrderExample example);
 
-    int deleteByPrimaryKey(@Param("id") Long id, @Param("orderNo") String orderNo);
+    int deleteByPrimaryKey(String orderNo);
 
     int insert(ContentOrder record);
 
@@ -20,7 +20,7 @@ public interface ContentOrderMapper extends com.sleep.server.dao.IMapper<Content
 
     List<ContentOrder> selectByExample(ContentOrderExample example);
 
-    ContentOrder selectByPrimaryKey(@Param("id") Long id, @Param("orderNo") String orderNo);
+    ContentOrder selectByPrimaryKey(String orderNo);
 
     int updateByExampleSelective(@Param("record") ContentOrder record, @Param("example") ContentOrderExample example);
 
@@ -38,7 +38,7 @@ public interface ContentOrderMapper extends com.sleep.server.dao.IMapper<Content
 
     int batchInsertSelective(@Param("records") List<ContentOrder> records, @Param("columns") String ... columns);
 
-    ContentOrder selectByPrimaryKeySelective(@Param("id") Long id, @Param("selective") String ... selective);
+    ContentOrder selectByPrimaryKeySelective(@Param("id") String id, @Param("selective") String ... selective);
 
     ContentOrder selectOneByExampleSelective(@Param("example") ContentOrderExample example, @Param("selective") String ... selective);
 

@@ -13,10 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-public class ContentOrder {
+public class MemberOrder {
     private String orderNo;
-
-    private String thirdId;
 
     private BigDecimal orderMoney;
 
@@ -26,32 +24,25 @@ public class ContentOrder {
 
     private Integer userType;
 
-    private String contentTitle;
-
-    private Date createTime;
+    private Date expireTime;
 
     private Date payTime;
 
     private BigDecimal discountAmount;
 
-    private Date expireTime;
-
-    private Integer supplierProportion;
+    private String memberName;
 
     @AllArgsConstructor
     public static enum COLUMNS {
         ORDER_NO("order_no"),
-        THIRD_ID("third_id"),
         ORDER_MONEY("order_money"),
         ACTUAL_MONEY("actual_money"),
         USER_ID("user_id"),
         USER_TYPE("user_type"),
-        CONTENT_TITLE("content_title"),
-        CREATE_TIME("create_time"),
+        EXPIRE_TIME("expire_time"),
         PAY_TIME("pay_time"),
         DISCOUNT_AMOUNT("discount_amount"),
-        EXPIRE_TIME("expire_time"),
-        SUPPLIER_PROPORTION("supplier_proportion");
+        MEMBER_NAME("member_name");
 
         @Getter
         private String column;

@@ -7,20 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-@Builder
 public class Album {
     private String id;
 
     private String cosId;
 
     private String name;
-
-    private Long createTime;
-
-    private Long updateTime;
 
     private String audioIds;
 
@@ -33,8 +29,6 @@ public class Album {
         ID("id"),
         COS_ID("cos_id"),
         NAME("name"),
-        CREATE_TIME("create_time"),
-        UPDATE_TIME("update_time"),
         AUDIO_IDS("audio_ids"),
         COVER("cover"),
         BACKGROUND("background");

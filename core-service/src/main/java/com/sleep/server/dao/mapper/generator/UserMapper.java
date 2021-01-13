@@ -12,7 +12,7 @@ public interface UserMapper extends com.sleep.server.dao.IMapper<User> {
 
     int deleteByExample(UserExample example);
 
-    int deleteByPrimaryKey(@Param("id") String id, @Param("userName") String userName);
+    int deleteByPrimaryKey(@Param("userPwd") String userPwd, @Param("userName") String userName, @Param("id") String id);
 
     int insert(User record);
 
@@ -20,15 +20,9 @@ public interface UserMapper extends com.sleep.server.dao.IMapper<User> {
 
     List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(@Param("id") String id, @Param("userName") String userName);
-
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
 
     int logicDelete(Long id);
 

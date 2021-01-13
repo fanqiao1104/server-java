@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-@Builder
 public class Channel {
     private String id;
 
@@ -26,10 +26,6 @@ public class Channel {
 
     private String grants;
 
-    private Long createTime;
-
-    private Long updateTime;
-
     private String redirectUris;
 
     @AllArgsConstructor
@@ -41,8 +37,6 @@ public class Channel {
         USER_ID("user_id"),
         STATUS("status"),
         GRANTS("grants"),
-        CREATE_TIME("create_time"),
-        UPDATE_TIME("update_time"),
         REDIRECT_URIS("redirect_uris");
 
         @Getter

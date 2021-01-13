@@ -7,28 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-@Builder
 public class User {
-    private String id;
+    private String userPwd;
 
     private String userName;
 
-    private String userPwd;
-
-    private Long crreateTime;
-
-    private Long updateTime;
+    private String id;
 
     @AllArgsConstructor
     public static enum COLUMNS {
-        ID("id"),
-        USER_NAME("user_name"),
         USER_PWD("user_pwd"),
-        CRREATE_TIME("crreate_time"),
-        UPDATE_TIME("update_time");
+        USER_NAME("user_name"),
+        ID("id");
 
         @Getter
         private String column;

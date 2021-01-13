@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sleep.server.dao.mapper.generator.UserMapper">
   <resultMap id="BaseResultMap" type="com.sleep.server.dao.entity.User">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
     <id column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
-    <result column="crreate_time" jdbcType="BIGINT" property="crreateTime" />
-    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, user_pwd, crreate_time, update_time
+    user_pwd, user_name, id
   </sql>
   <select id="selectByExample" parameterType="com.sleep.server.dao.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -91,17 +89,11 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from users
-    where id = #{id,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from users
-    where id = #{id,jdbcType=VARCHAR}
+    where user_pwd = #{userPwd,jdbcType=VARCHAR}
       and user_name = #{userName,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sleep.server.dao.entity.UserExample">
     delete from users
@@ -110,45 +102,33 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sleep.server.dao.entity.User">
-    insert into users (id, user_name, user_pwd, 
-      crreate_time, update_time)
-    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
-      #{crreateTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+    insert into users (user_pwd, user_name, id
+      )
+    values (#{userPwd,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sleep.server.dao.entity.User">
     insert into users
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="userPwd != null">
+        user_pwd,
       </if>
       <if test="userName != null">
         user_name,
       </if>
-      <if test="userPwd != null">
-        user_pwd,
-      </if>
-      <if test="crreateTime != null">
-        crreate_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
+      <if test="id != null">
+        id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="userPwd != null">
-        #{userPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="crreateTime != null">
-        #{crreateTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -161,20 +141,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update users
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=VARCHAR},
+      <if test="record.userPwd != null">
+        user_pwd = #{record.userPwd,jdbcType=VARCHAR},
       </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.userPwd != null">
-        user_pwd = #{record.userPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.crreateTime != null">
-        crreate_time = #{record.crreateTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=BIGINT},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -183,38 +157,12 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update users
-    set id = #{record.id,jdbcType=VARCHAR},
+    set user_pwd = #{record.userPwd,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      user_pwd = #{record.userPwd,jdbcType=VARCHAR},
-      crreate_time = #{record.crreateTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT}
+      id = #{record.id,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sleep.server.dao.entity.User">
-    update users
-    <set>
-      <if test="userPwd != null">
-        user_pwd = #{userPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="crreateTime != null">
-        crreate_time = #{crreateTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sleep.server.dao.entity.User">
-    update users
-    set user_pwd = #{userPwd,jdbcType=VARCHAR},
-      crreate_time = #{crreateTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
-    where id = #{id,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
   </update>
   <update id="logicDelete" parameterType="java.lang.Long">
     update users
@@ -241,20 +189,16 @@
   <insert id="batchInsert" parameterType="java.util.List">
     insert into users
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      id,
-      user_name,
       user_pwd,
-      crreate_time,
-      update_time,
+      user_name,
+      id,
     </trim>
      values 
     <foreach collection="list" index="index" item="item" separator=",">
       <trim prefix=" (" suffix=")" suffixOverrides=",">
-        #{item.id,jdbcType=VARCHAR},
-        #{item.userName,jdbcType=VARCHAR},
         #{item.userPwd,jdbcType=VARCHAR},
-        #{item.crreateTime,jdbcType=BIGINT},
-        #{item.updateTime,jdbcType=BIGINT},
+        #{item.userName,jdbcType=VARCHAR},
+        #{item.id,jdbcType=VARCHAR},
       </trim>
     </foreach>
   </insert>
@@ -267,20 +211,14 @@
     <foreach collection="records" index="index" item="record" separator=",">
       <trim prefix=" (" suffix=")" suffixOverrides=",">
         <foreach collection="columns" index="index" item="column">
-          <if test="'id' == column">
-            #{record.id,jdbcType=VARCHAR},
+          <if test="'user_pwd' == column">
+            #{record.userPwd,jdbcType=VARCHAR},
           </if>
           <if test="'user_name' == column">
             #{record.userName,jdbcType=VARCHAR},
           </if>
-          <if test="'user_pwd' == column">
-            #{record.userPwd,jdbcType=VARCHAR},
-          </if>
-          <if test="'crreate_time' == column">
-            #{record.crreateTime,jdbcType=BIGINT},
-          </if>
-          <if test="'update_time' == column">
-            #{record.updateTime,jdbcType=BIGINT},
+          <if test="'id' == column">
+            #{record.id,jdbcType=VARCHAR},
           </if>
         </foreach>
       </trim>

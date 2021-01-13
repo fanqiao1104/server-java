@@ -5,8 +5,6 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <id column="cos_id" jdbcType="VARCHAR" property="cosId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sleep.server.dao.entity.Album">
     <result column="audio_ids" jdbcType="LONGVARCHAR" property="audioIds" />
@@ -72,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, cos_id, name, create_time, update_time
+    id, cos_id, name
   </sql>
   <sql id="Blob_Column_List">
     audio_ids, cover, background
@@ -137,11 +135,11 @@
   </delete>
   <insert id="insert" parameterType="com.sleep.server.dao.entity.Album">
     insert into alburm (id, cos_id, name, 
-      create_time, update_time, audio_ids, 
-      cover, background)
+      audio_ids, cover, background
+      )
     values (#{id,jdbcType=VARCHAR}, #{cosId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{audioIds,jdbcType=LONGVARCHAR}, 
-      #{cover,jdbcType=LONGVARCHAR}, #{background,jdbcType=LONGVARCHAR})
+      #{audioIds,jdbcType=LONGVARCHAR}, #{cover,jdbcType=LONGVARCHAR}, #{background,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sleep.server.dao.entity.Album">
     insert into alburm
@@ -154,12 +152,6 @@
       </if>
       <if test="name != null">
         name,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
       </if>
       <if test="audioIds != null">
         audio_ids,
@@ -180,12 +172,6 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="audioIds != null">
         #{audioIds,jdbcType=LONGVARCHAR},
@@ -216,12 +202,6 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=BIGINT},
-      </if>
       <if test="record.audioIds != null">
         audio_ids = #{record.audioIds,jdbcType=LONGVARCHAR},
       </if>
@@ -241,8 +221,6 @@
     set id = #{record.id,jdbcType=VARCHAR},
       cos_id = #{record.cosId,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT},
       audio_ids = #{record.audioIds,jdbcType=LONGVARCHAR},
       cover = #{record.cover,jdbcType=LONGVARCHAR},
       background = #{record.background,jdbcType=LONGVARCHAR}
@@ -254,9 +232,7 @@
     update alburm
     set id = #{record.id,jdbcType=VARCHAR},
       cos_id = #{record.cosId,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT}
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -266,12 +242,6 @@
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="audioIds != null">
         audio_ids = #{audioIds,jdbcType=LONGVARCHAR},
@@ -289,8 +259,6 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sleep.server.dao.entity.Album">
     update alburm
     set name = #{name,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
       audio_ids = #{audioIds,jdbcType=LONGVARCHAR},
       cover = #{cover,jdbcType=LONGVARCHAR},
       background = #{background,jdbcType=LONGVARCHAR}
@@ -299,9 +267,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sleep.server.dao.entity.Album">
     update alburm
-    set name = #{name,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
+    set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
       and cos_id = #{cosId,jdbcType=VARCHAR}
   </update>
@@ -333,8 +299,6 @@
       id,
       cos_id,
       name,
-      create_time,
-      update_time,
       audio_ids,
       cover,
       background,
@@ -345,8 +309,6 @@
         #{item.id,jdbcType=VARCHAR},
         #{item.cosId,jdbcType=VARCHAR},
         #{item.name,jdbcType=VARCHAR},
-        #{item.createTime,jdbcType=BIGINT},
-        #{item.updateTime,jdbcType=BIGINT},
         #{item.audioIds,jdbcType=LONGVARCHAR},
         #{item.cover,jdbcType=LONGVARCHAR},
         #{item.background,jdbcType=LONGVARCHAR},
@@ -370,12 +332,6 @@
           </if>
           <if test="'name' == column">
             #{record.name,jdbcType=VARCHAR},
-          </if>
-          <if test="'create_time' == column">
-            #{record.createTime,jdbcType=BIGINT},
-          </if>
-          <if test="'update_time' == column">
-            #{record.updateTime,jdbcType=BIGINT},
           </if>
           <if test="'audio_ids' == column">
             #{record.audioIds,jdbcType=LONGVARCHAR},

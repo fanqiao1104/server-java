@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ContentOrderExample implements com.sleep.server.dao.IExample {
+public class MemberOrderExample implements com.sleep.server.dao.IExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -16,7 +16,7 @@ public class ContentOrderExample implements com.sleep.server.dao.IExample {
 
     private Integer offset;
 
-    public ContentOrderExample() {
+    public MemberOrderExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -196,76 +196,6 @@ public class ContentOrderExample implements com.sleep.server.dao.IExample {
 
         public Criteria andOrderNoNotBetween(String value1, String value2) {
             addCriterion("order_no not between", value1, value2, "orderNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdIsNull() {
-            addCriterion("third_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdIsNotNull() {
-            addCriterion("third_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdEqualTo(String value) {
-            addCriterion("third_id =", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdNotEqualTo(String value) {
-            addCriterion("third_id <>", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdGreaterThan(String value) {
-            addCriterion("third_id >", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdGreaterThanOrEqualTo(String value) {
-            addCriterion("third_id >=", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdLessThan(String value) {
-            addCriterion("third_id <", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdLessThanOrEqualTo(String value) {
-            addCriterion("third_id <=", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdLike(String value) {
-            addCriterion("third_id like", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdNotLike(String value) {
-            addCriterion("third_id not like", value, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdIn(List<String> values) {
-            addCriterion("third_id in", values, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdNotIn(List<String> values) {
-            addCriterion("third_id not in", values, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdBetween(String value1, String value2) {
-            addCriterion("third_id between", value1, value2, "thirdId");
-            return (Criteria) this;
-        }
-
-        public Criteria andThirdIdNotBetween(String value1, String value2) {
-            addCriterion("third_id not between", value1, value2, "thirdId");
             return (Criteria) this;
         }
 
@@ -519,133 +449,63 @@ public class ContentOrderExample implements com.sleep.server.dao.IExample {
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleIsNull() {
-            addCriterion("content_title is null");
+        public Criteria andExpireTimeIsNull() {
+            addCriterion("expire_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleIsNotNull() {
-            addCriterion("content_title is not null");
+        public Criteria andExpireTimeIsNotNull() {
+            addCriterion("expire_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleEqualTo(String value) {
-            addCriterion("content_title =", value, "contentTitle");
+        public Criteria andExpireTimeEqualTo(Date value) {
+            addCriterion("expire_time =", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleNotEqualTo(String value) {
-            addCriterion("content_title <>", value, "contentTitle");
+        public Criteria andExpireTimeNotEqualTo(Date value) {
+            addCriterion("expire_time <>", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleGreaterThan(String value) {
-            addCriterion("content_title >", value, "contentTitle");
+        public Criteria andExpireTimeGreaterThan(Date value) {
+            addCriterion("expire_time >", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleGreaterThanOrEqualTo(String value) {
-            addCriterion("content_title >=", value, "contentTitle");
+        public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("expire_time >=", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleLessThan(String value) {
-            addCriterion("content_title <", value, "contentTitle");
+        public Criteria andExpireTimeLessThan(Date value) {
+            addCriterion("expire_time <", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleLessThanOrEqualTo(String value) {
-            addCriterion("content_title <=", value, "contentTitle");
+        public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
+            addCriterion("expire_time <=", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleLike(String value) {
-            addCriterion("content_title like", value, "contentTitle");
+        public Criteria andExpireTimeIn(List<Date> values) {
+            addCriterion("expire_time in", values, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleNotLike(String value) {
-            addCriterion("content_title not like", value, "contentTitle");
+        public Criteria andExpireTimeNotIn(List<Date> values) {
+            addCriterion("expire_time not in", values, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleIn(List<String> values) {
-            addCriterion("content_title in", values, "contentTitle");
+        public Criteria andExpireTimeBetween(Date value1, Date value2) {
+            addCriterion("expire_time between", value1, value2, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andContentTitleNotIn(List<String> values) {
-            addCriterion("content_title not in", values, "contentTitle");
-            return (Criteria) this;
-        }
-
-        public Criteria andContentTitleBetween(String value1, String value2) {
-            addCriterion("content_title between", value1, value2, "contentTitle");
-            return (Criteria) this;
-        }
-
-        public Criteria andContentTitleNotBetween(String value1, String value2) {
-            addCriterion("content_title not between", value1, value2, "contentTitle");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNull() {
-            addCriterion("create_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNotNull() {
-            addCriterion("create_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeEqualTo(Date value) {
-            addCriterion("create_time =", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotEqualTo(Date value) {
-            addCriterion("create_time <>", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThan(Date value) {
-            addCriterion("create_time >", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("create_time >=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThan(Date value) {
-            addCriterion("create_time <", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("create_time <=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIn(List<Date> values) {
-            addCriterion("create_time in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotIn(List<Date> values) {
-            addCriterion("create_time not in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeBetween(Date value1, Date value2) {
-            addCriterion("create_time between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("create_time not between", value1, value2, "createTime");
+        public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
+            addCriterion("expire_time not between", value1, value2, "expireTime");
             return (Criteria) this;
         }
 
@@ -769,123 +629,73 @@ public class ContentOrderExample implements com.sleep.server.dao.IExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIsNull() {
-            addCriterion("expire_time is null");
+        public Criteria andMemberNameIsNull() {
+            addCriterion("member_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIsNotNull() {
-            addCriterion("expire_time is not null");
+        public Criteria andMemberNameIsNotNull() {
+            addCriterion("member_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeEqualTo(Date value) {
-            addCriterion("expire_time =", value, "expireTime");
+        public Criteria andMemberNameEqualTo(String value) {
+            addCriterion("member_name =", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotEqualTo(Date value) {
-            addCriterion("expire_time <>", value, "expireTime");
+        public Criteria andMemberNameNotEqualTo(String value) {
+            addCriterion("member_name <>", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeGreaterThan(Date value) {
-            addCriterion("expire_time >", value, "expireTime");
+        public Criteria andMemberNameGreaterThan(String value) {
+            addCriterion("member_name >", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("expire_time >=", value, "expireTime");
+        public Criteria andMemberNameGreaterThanOrEqualTo(String value) {
+            addCriterion("member_name >=", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeLessThan(Date value) {
-            addCriterion("expire_time <", value, "expireTime");
+        public Criteria andMemberNameLessThan(String value) {
+            addCriterion("member_name <", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
-            addCriterion("expire_time <=", value, "expireTime");
+        public Criteria andMemberNameLessThanOrEqualTo(String value) {
+            addCriterion("member_name <=", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIn(List<Date> values) {
-            addCriterion("expire_time in", values, "expireTime");
+        public Criteria andMemberNameLike(String value) {
+            addCriterion("member_name like", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotIn(List<Date> values) {
-            addCriterion("expire_time not in", values, "expireTime");
+        public Criteria andMemberNameNotLike(String value) {
+            addCriterion("member_name not like", value, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeBetween(Date value1, Date value2) {
-            addCriterion("expire_time between", value1, value2, "expireTime");
+        public Criteria andMemberNameIn(List<String> values) {
+            addCriterion("member_name in", values, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
-            addCriterion("expire_time not between", value1, value2, "expireTime");
+        public Criteria andMemberNameNotIn(List<String> values) {
+            addCriterion("member_name not in", values, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierProportionIsNull() {
-            addCriterion("supplier_proportion is null");
+        public Criteria andMemberNameBetween(String value1, String value2) {
+            addCriterion("member_name between", value1, value2, "memberName");
             return (Criteria) this;
         }
 
-        public Criteria andSupplierProportionIsNotNull() {
-            addCriterion("supplier_proportion is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionEqualTo(Integer value) {
-            addCriterion("supplier_proportion =", value, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionNotEqualTo(Integer value) {
-            addCriterion("supplier_proportion <>", value, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionGreaterThan(Integer value) {
-            addCriterion("supplier_proportion >", value, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionGreaterThanOrEqualTo(Integer value) {
-            addCriterion("supplier_proportion >=", value, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionLessThan(Integer value) {
-            addCriterion("supplier_proportion <", value, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionLessThanOrEqualTo(Integer value) {
-            addCriterion("supplier_proportion <=", value, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionIn(List<Integer> values) {
-            addCriterion("supplier_proportion in", values, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionNotIn(List<Integer> values) {
-            addCriterion("supplier_proportion not in", values, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionBetween(Integer value1, Integer value2) {
-            addCriterion("supplier_proportion between", value1, value2, "supplierProportion");
-            return (Criteria) this;
-        }
-
-        public Criteria andSupplierProportionNotBetween(Integer value1, Integer value2) {
-            addCriterion("supplier_proportion not between", value1, value2, "supplierProportion");
+        public Criteria andMemberNameNotBetween(String value1, String value2) {
+            addCriterion("member_name not between", value1, value2, "memberName");
             return (Criteria) this;
         }
     }

@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
-@Builder
 public class PlayRecord {
     private String id;
 

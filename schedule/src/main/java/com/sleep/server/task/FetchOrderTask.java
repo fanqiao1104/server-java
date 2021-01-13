@@ -5,7 +5,10 @@ import cn.hutool.json.JSONObject;
 //import com.sleep.server.dao.mapper.generator.ContentOrderMapper;
 import com.sleep.server.dao.IExample;
 import com.sleep.server.dao.entity.ContentOrderExample;
+import com.sleep.server.dao.entity.MemberOrder;
+import com.sleep.server.dao.entity.MemberOrderExample;
 import com.sleep.server.dao.mapper.generator.ContentOrderMapper;
+import com.sleep.server.dao.mapper.generator.MemberOrderMapper;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.XxlJob;
@@ -48,6 +51,9 @@ public class FetchOrderTask extends  IJobHandler {
     @Autowired
      private ContentOrderMapper contentOrderMapper;
 
+    @Autowired
+    private MemberOrderMapper memberOrderMapper;
+
     private Logger logger = LoggerFactory.getLogger(getClass());
     private String server="http://openapi.haoxinqing.cn";
     private String saasInfoId="10017";
@@ -73,14 +79,106 @@ public class FetchOrderTask extends  IJobHandler {
             params.put("startPayTime",formatters.format(lastmonth)+"-01");
             params.put("endPayTime",formatters.format(lastmonth)+"-"+dayOfLastMonth);
             params.put("signtime",System.currentTimeMillis() + "");
-            fetchPageable(params);
+            fetchContentOrderPageable(params);
         } catch (URISyntaxException | IOException e) {
             throw e;
         }
+
+        try {
+            LocalDate today=LocalDate.now();
+            LocalDate lastmonth=today.minusMonths(1);
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM");
+            Calendar calendar= Calendar.getInstance();
+            calendar.setTime(new Date());
+            calendar.add(calendar.MONTH,-1);
+            Integer dayOfLastMonth=calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("pn","1");
+            params.put("ps","100");
+            params.put("saasInfoId",saasInfoId);
+            params.put("startPayTime",formatters.format(lastmonth)+"-01");
+            params.put("endPayTime",formatters.format(lastmonth)+"-"+dayOfLastMonth);
+            params.put("signtime",System.currentTimeMillis() + "");
+            fetchMemberOrderPageable(params);
+        } catch (URISyntaxException | IOException e) {
+            throw e;
+        }
+
+
         return SUCCESS;
     }
 
-    private void fetchPageable(Map<String, String> params) throws Exception{
+    private void fetchMemberOrderPageable(Map<String, String> params)throws Exception{
+
+        String signature = getSign(key,params);
+        params.put("signature",signature);
+
+        try {
+            URIBuilder uriBuilder = new URIBuilder(server + "/api/order/memberOrderList");
+            uriBuilder.setParameter("pn",params.get("pn"));
+            uriBuilder.setParameter("ps",params.get("ps"));
+            uriBuilder.setParameter("saasInfoId", params.get("saasInfoId"));
+            uriBuilder.setParameter("startPayTime", params.get("startPayTime"));
+            uriBuilder.setParameter("endPayTime", params.get("endPayTime"));
+            uriBuilder.setParameter("signtime", params.get("signtime"));
+            uriBuilder.setParameter("signature", params.get("signature"));
+
+            URI url = uriBuilder.build();
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpPost get = new HttpPost(url);
+            HttpResponse response = client.execute(get);
+            String res = EntityUtils.toString(response.getEntity());
+            XxlJobLogger.log(res);
+            if(!res.startsWith("{")){
+                throw new RuntimeException(res);
+            }
+            JSONObject jsonObject = new JSONObject(res);
+            Integer code = jsonObject.getInt("code");
+            if(code != null && code == 1000) {
+                JSONObject result = jsonObject.getJSONObject("result");
+                JSONArray list = result.getJSONArray("list");
+                Integer pn = result.getInt("pn");
+                Integer ps = result.getInt("ps");
+                Integer size = list.size();
+
+                for(int i = 0; i < size; i++){
+
+                    JSONObject itemObject = list.getJSONObject(i);
+                    MemberOrder item = new MemberOrder();
+                    String orderNo = itemObject.getStr("orderNo");
+                    MemberOrderExample example = new MemberOrderExample();
+                    example.createCriteria().andOrderNoEqualTo(orderNo);
+                    List<ContentOrder> memberOrders=  contentOrderMapper.selectByExample(example);
+
+                    if(memberOrders.size()>0){
+                        XxlJobLogger.log("member order "+orderNo+" is exist passed");
+                        continue;
+                    }
+                    item.setOrderNo(orderNo);
+                    item.setOrderMoney(itemObject.getBigDecimal("orderMoney"));
+                    item.setActualMoney(itemObject.getBigDecimal("actualMoney"));
+                    item.setUserId(itemObject.getStr("userId"));
+                    item.setUserType(itemObject.getInt("userType"));
+                    item.setPayTime(itemObject.getDate("payTime"));
+                    item.setDiscountAmount(itemObject.getBigDecimal("discountAmount"));
+                    item.setExpireTime(itemObject.getDate("expireTime"));
+                    item.setMemberName(itemObject.getStr("memberName"));
+                    XxlJobLogger.log(item.getOrderNo()+" "+item.getMemberName()+" "+item.getPayTime()+" "+item.getUserType()+" "+item.getOrderMoney()+" "+item.getActualMoney());
+                    memberOrderMapper.insert(item);
+                }
+                if(size>=ps){
+                    pn=pn+1;
+                    params.put("pn",pn.toString());
+                    fetchContentOrderPageable(params);
+                }
+            }
+        }catch(URISyntaxException | IOException e){
+            throw e;
+        }
+
+    }
+    private void fetchContentOrderPageable(Map<String, String> params) throws Exception{
 
         String signature = getSign(key,params);
         params.put("signature",signature);
@@ -126,7 +224,6 @@ public class FetchOrderTask extends  IJobHandler {
                             XxlJobLogger.log("order "+orderNo+" is exist passed");
                             continue;
                         }
-
                         item.setThirdId(itemObject.getStr("thirdId"));
                         item.setOrderNo(orderNo);
                         item.setOrderMoney(itemObject.getBigDecimal("orderMoney"));
@@ -145,7 +242,7 @@ public class FetchOrderTask extends  IJobHandler {
                     if(size>=ps){
                         pn=pn+1;
                         params.put("pn",pn.toString());
-                        fetchPageable(params);
+                        fetchContentOrderPageable(params);
                     }
                 }
             }catch(URISyntaxException | IOException e){
