@@ -6,7 +6,7 @@ spring:
     name: backend-server
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/sleep_service
+    url: jdbc:mysql://127.0.0.1:3306/sleep_service?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&useLegacyDatetimeCode=false
     username: root
     password: lijinlong7121X@126
 
