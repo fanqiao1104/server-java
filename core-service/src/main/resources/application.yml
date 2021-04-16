@@ -11,4 +11,4 @@ spring:
     password: lijinlong7121X@126
 
 mybatis:
-    mapperLocations: classpath:sqlMap/generator/*.xml  #指定*Mapper.xml的位置
+    mapperLocations: classpath*:**/sqlMap/generator/*.xml  #指定*Mapper.xml的位置
