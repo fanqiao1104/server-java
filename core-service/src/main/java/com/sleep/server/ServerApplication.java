@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.sleep.server.mapper")
+@MapperScan("com.sleep.server.dao")
 public class ServerApplication {
 
     public static void main(String[] args) {

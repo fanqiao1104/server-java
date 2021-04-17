@@ -1,7 +1,6 @@
-server:
-  port: 7001
-
 spring:
+  profiles:
+    active: "@spring.profiles.active@"
   application:
     name: core-service
   datasource:
@@ -12,3 +11,7 @@ spring:
 
 mybatis:
     mapperLocations: classpath*:**/sqlMap/generator/*.xml  #指定*Mapper.xml的位置
+    map-underscore-to-camel-case: true
+
+server:
+  port: 7001

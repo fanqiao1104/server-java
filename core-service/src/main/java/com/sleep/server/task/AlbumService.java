@@ -22,8 +22,6 @@ public class AlbumService {
     @Autowired
     private AlbumMapper albumMapper;
 
-    @Autowired
-    private IGlobalIdService globalIdService;
 
     public Album selectByName(String name) {
         AlbumExample example = new AlbumExample();
@@ -56,8 +54,15 @@ public class AlbumService {
         }
         example.setOffset((queryParams.getPage().getIndex() - 1) * queryParams.getPage().getLimit());
         example.setLimit(queryParams.getPage().getLimit());
-        List<Album> audios = albumMapper.selectByExample(example);
+        List<Album> audios = albumMapper.selectByExampleWithBLOBs(example);
 
         return PageView.of(count, audios);
+    }
+
+    public Long getAllAlbumCount(){
+
+        AlbumExample example = new AlbumExample();
+        Long count = albumMapper.countByExample(example);
+        return count;
     }
 }

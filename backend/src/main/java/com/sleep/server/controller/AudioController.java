@@ -49,4 +49,9 @@ public class AudioController {
     public  PageView getAudioList(@RequestBody @Validated AudioListQueryRequestDto queryParam){
         return audioService.findPage(queryParam);
     }
+    @PostMapping(path = "/all_audio_count")
+    public  ResultView getAllAudioCount(){
+        return  ResultView.ok(audioService.getAllAudioCount());
+    }
+
 }

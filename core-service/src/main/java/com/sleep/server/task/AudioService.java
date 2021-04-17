@@ -1,5 +1,6 @@
 package com.sleep.server.task;
 
+import com.sleep.server.dao.entity.AlbumExample;
 import com.sleep.server.dao.entity.AudioExample;
 import com.sleep.server.dao.mapper.generator.AudioMapper;
 import com.sleep.server.dto.AudioListQueryRequestDto;
@@ -18,9 +19,6 @@ import java.util.List;
 public class AudioService {
     @Autowired
     private AudioMapper audioMapper;
-
-    @Autowired
-    private IGlobalIdService globalIdService;
 
     public Audio selectByName(String name) {
         AudioExample example = new AudioExample();
@@ -53,9 +51,15 @@ public class AudioService {
         }
         example.setOffset((queryParams.getPage().getIndex() - 1) * queryParams.getPage().getLimit());
         example.setLimit(queryParams.getPage().getLimit());
-        List<Audio> audios = audioMapper.selectByExample(example);
+        List<Audio> audios = audioMapper.selectByExampleWithBLOBs(example);
 
         return PageView.of(count, audios);
     }
 
+    public Long getAllAudioCount(){
+
+        AudioExample example = new AudioExample();
+        Long count = audioMapper.countByExample(example);
+        return count;
+    }
 }

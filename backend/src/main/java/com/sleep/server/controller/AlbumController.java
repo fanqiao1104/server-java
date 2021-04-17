@@ -45,4 +45,9 @@ public class AlbumController {
     public PageView getAlbumList(@RequestBody @Validated PageableRequestDto queryParam){
         return albumService.findPage(queryParam);
     }
+    @PostMapping(path = "/all_album_count")
+    public  ResultView getAllAlbumCount(){
+        Long count = albumService.getAllAlbumCount();
+        return  ResultView.ok(count);
+    }
 }

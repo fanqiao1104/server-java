@@ -1,6 +1,3 @@
-server:
-  port: 7002
-
 spring:
   application:
     name: backend-server
@@ -9,6 +6,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/sleep_service?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&useLegacyDatetimeCode=false
     username: root
     password: 123456
-
+  mvc:
+    dispatch-options-request: true
 mybatis:
   mapperLocations: classpath*:**/sqlMap/generator/*.xml  #指定*Mapper.xml的位置
+  map-underscore-to-camel-case: true
+
+server:
+  port: 7002
